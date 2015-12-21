@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+       default-lazy-init="true">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id = "sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <!-- 可以加多个包 -->
+                <value>com.web.app.wx.common.entity</value>
+            </list>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>modelMap/WxClipsEntity.hbm.xml</value>
+                <value>modelMap/WxFunctionEntity.hbm.xml</value>
+                <value>modelMap/WxPointEntity.hbm.xml</value>
+                <value>modelMap/WxRewardEntity.hbm.xml</value>
+                <value>modelMap/WxSnEntity.hbm.xml</value>
+                <value>modelMap/WxMenuEntity.hbm.xml</value>
+                <value>modelMap/WxArticleBrowerLogEntity.hbm.xml</value>
+                <value>modelMap/WxArticleEntity.hbm.xml</value>
+                <value>modelMap/WxKeyFunctionRelativeEntity.hbm.xml</value>
+                <value>modelMap/WxKeyEntity.hbm.xml</value>
+                <value>modelMap/WxKeyArtileRelativeEntity.hbm.xml</value>
+                <value>modelMap/WxFunctionUserRelativeEntity.hbm.xml</value>
+                <value>modelMap/WxFunctionSjxEntity.hbm.xml</value>
+                <value>modelMap/WxGzhMenuEntity.hbm.xml</value>
+                <value>modelMap/WxRedBillLogEntity.hbm.xml</value>
+                <value>modelMap/WxSubscribeRedEntity.hbm.xml</value>
+                <value>modelMap/WxPnEntity.hbm.xml</value>
+                <value>modelMap/WxPnUserRelativeEntity.hbm.xml</value>
+                <value>modelMap/WxUserEntity.hbm.xml</value>
+                <value>modelMap/WxTradeEntity.hbm.xml</value>
+                <value>modelMap/WxTradeLogEntity.hbm.xml</value>
+                <value>modelMap/WxTradeUserRelativeEntity.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="connection.characterEncoding">UTF-8</prop>
+                <prop key="connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.url">${jdbc.url}</prop>
+                <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <!--最大连接数 -->
+                <prop key="hibernate.c3p0.max_size">50</prop>
+                <!--连接超时时间 -->
+                <prop key="hibernate.c3p0.timeout">120</prop>
+                <!--statemnets缓存大小 -->
+                <prop key="hibernate.c3p0.max_statements">100</prop>
+                <!--每隔多少秒检测连接是否可正常使用 -->
+                <prop key="hibernate.c3p0.idle_test_period">120</prop>
+                <!--当池中的连接耗尽的时候，一次性增加的连接数量,默认为3 -->
+                <prop key="hibernate.c3p0.acquire_increment">2</prop>
+                <!-- 每次都验证连接是否可用 -->
+                <prop key="hibernate.c3p0.validate">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id = "dataSource" class = "com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" ><value>${jdbc.driverClassName}</value></property>
+        <property name="jdbcUrl" ><value>${jdbc.url}</value></property>
+        <property name="user" ><value>${jdbc.username}</value></property>
+        <property name="password" ><value>${jdbc.password}</value></property>
+        <property name="minPoolSize" value="10" />
+        <property name="maxPoolSize" value="100" />
+        <property name="maxIdleTime" value="1800" />
+        <property name="acquireIncrement" value="3" />
+        <property name="maxStatements" value="1000" />
+        <property name="initialPoolSize" value="10" />
+        <property name="idleConnectionTestPeriod" value="60" />
+        <!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+        <property name="acquireRetryAttempts" value="5" />
+        <property name="breakAfterAcquireFailure" value="true" />
+        <property name="testConnectionOnCheckout" value="false" />
+        <property name="autoCommitOnClose" value="true"/>
+    </bean>
+
+    <!-- 配置Hibernate事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- 配置事务异常封装 -->
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+    <!--  声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" timeout="100" />
+            <tx:method name="save*" propagation="REQUIRED" timeout="100"  />
+            <tx:method name="update*" propagation="REQUIRED" timeout="100"  />
+            <tx:method name="delete*" propagation="REQUIRED" timeout="100"  />
+            <tx:method name="get*" read-only="true" timeout="100"  />
+            <tx:method name="*" timeout="100"  />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true">
+        <!-- 只对业务逻辑层实施事务 -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.web.app.wx.manager.service.*.*(..))" />
+        <!-- Advisor定义，切入点和通知分别为txPointcut、txAdvice -->
+        <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
+    </aop:config>
+
+    <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />-->
+
+
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8" />
+        <property name="location" value="classpath:config.properties" />
+    </bean>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation">
+            <value>classpath:sqlConfig.xml</value>
+        </property>
+        <property name="dataSource" ref="dataSource">
+        </property>
+    </bean>
+
+    <bean id="sqlMapClientTemplate"  class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/server/**" value="myResourceHandler" />
+            </map>
+        </property>
+        <property name="order" value="100000" />
+    </bean>
+
+
+    <bean id="myResourceHandler" name="myResourceHandler"
+          class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
+        <property name="locations" value="/server/portal" />
+        <property name="supportedMethods">
+            <list>
+                <value>GET</value>
+                <value>HEAD</value>
+                <value>POST</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
