@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"  "http://www.ibatis.com/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="page">
+    <typeAlias alias="SimpleArticle" type="com.fastbuild.entity.SimpleArticleEntity"></typeAlias>
+
+    <select id="getAllPage"  resultClass="HashMap">
+        select * from page
+    </select>
+
+    <select id="getArticleByPage" parameterClass="Map" resultClass="SimpleArticle">
+        select * from
+            simple_article as a
+        where
+            a.id in (
+                select
+                    simple_article_id
+                from
+                    page_simple_article as psa
+                where
+                    psa.page_id = #pageId#
+            )
+    </select>
+
+    <select id="getArticleById" parameterClass="Map" resultClass="SimpleArticle">
+        select * from
+            simple_article
+        where
+            id = #articleId#
+    </select>
+</sqlMap>

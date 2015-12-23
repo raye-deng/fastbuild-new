@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
  * @修改人：邓风森
  * @修改时间： 2015/4/9 11:29.
  */
-public class BaseController {
+public abstract class BaseController {
     @Autowired
     HttpSession session;
 
@@ -31,5 +31,4 @@ public class BaseController {
         modelMap.put("result", Boolean.valueOf(false));
         modelMap.put("errorMsg", errorMsg);
     }
-
 }

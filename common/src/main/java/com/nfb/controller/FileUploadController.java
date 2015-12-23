@@ -112,9 +112,9 @@ public class FileUploadController {
         out.close();
     }
 
-
     /**
      * 获取文件的http完整链接
+     *
      * @param saveUri
      * @param request
      * @param response
@@ -134,6 +134,7 @@ public class FileUploadController {
 
     /**
      * 依据原始文件名生成新文件名
+     *
      * @return
      */
     private String getSaveFileName(String fileName) {
@@ -143,6 +144,7 @@ public class FileUploadController {
 
     /**
      * 根据字符串创建本地目录 并建立子目录返回
+     *
      * @param path
      * @return
      */
@@ -161,6 +163,7 @@ public class FileUploadController {
 
     /**
      * 根据传入的虚拟路径获取物理路径
+     *
      * @param path
      * @return
      */
@@ -171,9 +174,9 @@ public class FileUploadController {
         return realPath + "/" + path;
     }
 
-
     /**
      * 获取文件扩展名
+     *
      * @return string
      */
     private String getFileExt(String fileName) {

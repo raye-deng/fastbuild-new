@@ -2,20 +2,11 @@
 <!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
         "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 <sqlMapConfig>
-    <settings
-        cacheModelsEnabled="true"
-        enhancementEnabled="true"
-        lazyLoadingEnabled="true"
-        errorTracingEnabled="true"
-        maxRequests="32"
-        maxSessions="10"
-        maxTransactions="5"
-        useStatementNamespaces="true"
-        />
-
+    <settings cacheModelsEnabled="true" enhancementEnabled="true"
+              lazyLoadingEnabled="true" errorTracingEnabled="true"
+              maxRequests="32" maxSessions="10"
+              maxTransactions="5" useStatementNamespaces="true"/>
 
     <sqlMap resource="sqlMap/sys.xml"/>
-    <sqlMap resource="sqlMap/article.xml"/>
-    <sqlMap resource="sqlMap/red.xml"/>
-
+    <sqlMap resource="sqlMap/page.xml"/>
 </sqlMapConfig>
