@@ -10,8 +10,10 @@
         <property name="locations">
             <list>
                 <value>classpath*:jdbc.properties</value>
+                <value>classpath*:config.properties</value>
             </list>
         </property>
+        <property name="fileEncoding" value="UTF-8"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -107,16 +109,9 @@
 
     <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />-->
 
-
-    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="fileEncoding" value="UTF-8"/>
-        <property name="location" value="classpath:config.properties"/>
-    </bean>
-
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-
 
     <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
         <property name="configLocation">
@@ -138,7 +133,6 @@
         </property>
         <property name="order" value="100000"/>
     </bean>
-
 
     <bean id="myResourceHandler" name="myResourceHandler"
           class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">

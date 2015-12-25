@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+
+/*nav*/
+.fast-build-nav{
+    display: block;
+    background:#2D3E50;
+}
+.fast-build-nav-top{
+    display: block;
+    width: 100%;
+    height: 120px;
+    box-shadow:inset 0px -10px 30px #8AA5BD;
+    position: relative;
+}
+.fast-build-menu-heading{
+    width: 20%;
+    height: 120px;
+    display: block;
+    text-align: center;
+    position: absolute;
+    left: 10px;
+    color: #fff;
+    font-size: 18px;
+    font: bold;
+    font-weight: 500;
+    word-break: break-all;
+}
+.fast-build-menu-heading>img{
+    display: block;
+    margin: 20px auto;
+}
+
+.fast-build-menu{
+    padding-top: 120px;
+    position: absolute;
+    right: 0px;
+    width: 180px;
+    height: 110px;
+    background: #ffffff;
+}
+
+.fast-build-menu li{
+    display: none;
+    text-align: center;
+    width: 180px;
+    line-height: 60px;
+    background: #6A8BAB;
+}
+.fast-build-menu li a{
+    color: #fff;
+    font-size: 30px;
+}
+.fast-build-menu li input{
+    color: #fff;
+    font-size: 30px;
+    background: none;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 0px;
+    border: none;
+}
+
+/*pop*/
+.fast-build-pop-win{
+    display: none;
+    width: 80%;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    margin:-160px -40%;
+    background: #fff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+.fast-build-pop-title{
+    height: 80px;
+    background: #4D6F89;
+    text-align: center;
+    line-height: 80px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    color: #fff;
+}
+.fast-build-pop-title span{
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: url("../../../images/icon_close.png") #ffffff;
+}
+.fast-build-pop-content{
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.fast-build-pop-submit{
+    border-top: 1px solid #ccc;
+    padding: 5px 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    min-height: 45px;
+}
+.fast-build-pop-submit p{
+    color: green;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    clear: both;
+}
+.fast-build-pop-submit input{
+    width: 180px;
+    height:40px;
+    border: none;
+    font-size: 20px;
+    display: block;
+    float: right;
+    background:#3DB39E;
+    margin-right: 20px;
+    color: #fff !important;
+}
+
+/*input*/
+.inputBox{
+    min-width: 340px;
+    height: 80px;
+    display: block;
+}
+.inputBox label{
+    font-size: 20px;
+    color: dodgerblue;
+}
+.inputBox input[type="text"],.inputBox input[type="password"]{
+    height: 40px;
+    font-size: 24px;
+    width: 250px;
+}

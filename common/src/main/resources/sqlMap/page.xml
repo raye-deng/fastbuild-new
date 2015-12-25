@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"  "http://www.ibatis.com/dtd/sql-map-2.dtd" >
 
 <sqlMap namespace="page">
-    <typeAlias alias="SimpleArticle" type="com.fastbuild.entity.SimpleArticleEntity"></typeAlias>
+    <typeAlias alias="SimpleArticle" type="com.nfb.entity.SimpleArticleEntity"></typeAlias>
 
     <select id="getAllPage"  resultClass="HashMap">
         select * from page

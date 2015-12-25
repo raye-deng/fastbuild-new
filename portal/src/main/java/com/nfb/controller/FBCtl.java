@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.nfb.entity.SimpleArticleEntity;
 import com.nfb.service.PageService;
 import com.nfb.utils.WebCacheUtils;
+import com.nfb.web.MediaTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,11 +24,10 @@ import java.util.Map;
  * Created by Administrator on 2015/8/4.
  */
 @Controller
-public class FBCtl {
-
+public class FBCtl extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FBCtl.class);
     @Autowired
     PageService pageService;
-
 
     @RequestMapping(value = "example")
     public void example(HttpServletRequest request, ModelMap modelMap) {
@@ -52,7 +54,7 @@ public class FBCtl {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/page/article/{id}", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/page/article/{id}", method = RequestMethod.POST, produces = MediaTypes.JSON_UTF_8)
     public String list(HttpServletRequest request, ModelMap modelMap, Map param, @PathVariable Integer id) {
         try {
             param.put("pageId", id);
@@ -62,7 +64,7 @@ public class FBCtl {
         } catch (SQLException e) {
             modelMap.put("errorMsg", "服务器发生错误，错误信息(" + e.getMessage() + ")");
             modelMap.put("result", Boolean.valueOf(false));
-            e.printStackTrace();
+            LOGGER.error("OccurError", e);
         }
         return JSON.toJSONString(modelMap);
     }
@@ -73,14 +75,13 @@ public class FBCtl {
         String title = WebCacheUtils.csdnArticleDetailParse("http://blog.csdn.net/mremotion/article/details/" + id, "UTF-8", "link_title");
         title = title.replace("</a></span>", "");
         title = title.substring(title.lastIndexOf(">") + 1);
-        System.out.println("title:" + title);
         modelMap.put("content", content);
         modelMap.put("title", title);
         return "/article";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/article/detail/{id}", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/article/detail/{id}", method = RequestMethod.POST, produces = MediaTypes.JSON_UTF_8)
     public String dataById(HttpServletRequest request, ModelMap modelMap, Map param, @PathVariable Integer id) {
         try {
             param.put("articleId", id);
@@ -90,7 +91,7 @@ public class FBCtl {
         } catch (SQLException e) {
             modelMap.put("errorMsg", "服务器发生错误，错误信息:" + e.getMessage());
             modelMap.put("result", Boolean.valueOf(false));
-            e.printStackTrace();
+            LOGGER.error("OccurError", e);
         }
         return JSON.toJSONString(modelMap);
     }

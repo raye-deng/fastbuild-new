@@ -3,6 +3,7 @@ package com.nfb.dao;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import java.util.List;
  * @修改人：邓风森
  * @修改时间： 2015/3/11 17:34.
  */
-@Component
+@Repository
 public class IBatisBaseDao extends SqlMapClientDaoSupport {
     @Resource(name = "sqlMapClient")
     //通过bean名称注入

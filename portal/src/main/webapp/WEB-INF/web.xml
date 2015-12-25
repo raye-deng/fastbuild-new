@@ -9,7 +9,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath*:/applicationContext.xml,
-            <!--classpath*:/application-security-shiro.xml-->
+            classpath*:/application-security-shiro.xml
         </param-value>
     </context-param>
     <context-param>
@@ -64,18 +64,18 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!--<filter>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>targetFilterLifecycle</param-name>-->
-            <!--<param-value>true</param-value>-->
-        <!--</init-param>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
     <servlet>
@@ -96,6 +96,10 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/resources/upload/**</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/images/**</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -132,7 +136,6 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/admin/login</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 

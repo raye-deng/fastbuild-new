@@ -4,51 +4,50 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-lazy-init="true">
-       <description>shiro 安全框架配置</description>
+    <description>shiro 安全框架配置</description>
 
-       <import resource="dispather-servlet.xml"></import>
+    <import resource="dispather-servlet.xml"></import>
 
-       <!-- Shiro Filter -->
-       <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-              <!--<property name="securityManager" ref="securityManager" />-->
-              <!--<property name="loginUrl" value="/admin/login" />-->
-              <!-- 不必设定successUrl,避免forward方式跳转，无法显示 数据，在Controller中直接redirect，可解决此问题-->
-              <!--<property name="successUrl" value="/admin/base_info" />-->
-              <property name="unauthorizedUrl" value="/err/unauthorizated"/>
-              <property name="filterChainDefinitions">
-                     <value>
-                            /resources/** = anon
-                            <!--/admin/login = anon-->
-                            <!--/admin/logout = anon-->
-                            /menu/** = roles["ROLE_SERVICE,ROLE_USER"]
-                            /** = authc
-                     </value>
-              </property>
-              <property name="filters">
-                     <map>
-                            <!--<entry key="authc" value-ref="permissionFilter"></entry>-->
-                     </map>
-              </property>
-       </bean>
+    <!-- Shiro Filter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!--<property name="loginUrl" value="/admin/login" />-->
+        <!-- 不必设定successUrl,避免forward方式跳转，无法显示 数据，在Controller中直接redirect，可解决此问题-->
+        <!--<property name="successUrl" value="/admin/base_info" />-->
+        <property name="unauthorizedUrl" value="/err/unauthorizated"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /resources/** = anon
+                <!--/admin/login = anon-->
+                <!--/admin/logout = anon-->
+                /menu/** = roles["ROLE_SERVICE,ROLE_USER"]
+                /** = anon
+            </value>
+        </property>
+        <property name="filters">
+            <map>
+                <!--<entry key="authc" value-ref="permissionFilter"></entry>-->
+            </map>
+        </property>
+    </bean>
 
-       <!--<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
-              <!--<property name="realm" ref="weChatRealm"></property>-->
-       <!--</bean>-->
-
-
-       <!--<bean id="weChatRealm" class="com.web.app.wx.manager.realm.WeChatRealm">-->
-              <!--<property name="adminService" ref="adminService"></property>-->
-       <!--</bean>-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="weChatRealm"></property>
+    </bean>
 
 
-       <!-- 用户授权信息Cache, 采用EhCache -->
-       <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-              <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml"/>
-       </bean>
-
-       <!--<bean id="permissionFilter" class="com.web.app.wx.manager.filter.PermissionsAuthorizationFilter"></bean>-->
+    <bean id="weChatRealm" class="com.nfb.realm.CustomerRealm">
+    </bean>
 
 
-       <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
-       <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    <!-- 用户授权信息Cache, 采用EhCache -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml"/>
+    </bean>
+
+    <!--<bean id="permissionFilter" class="com.web.app.wx.manager.filter.PermissionsAuthorizationFilter"></bean>-->
+
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

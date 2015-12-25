@@ -21,12 +21,11 @@ import java.util.List;
  * 创建时间：2015/11/13
  */
 public final class WebCacheUtils {
-    private static Logger logger = LoggerFactory.getLogger(WebCacheUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebCacheUtils.class);
 
     public static List csdnArticleListParse(String url, String encoded) throws Exception {
         URLConnection connection = new URL(url).openConnection();
         connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-
         Parser parser = new Parser((HttpURLConnection) connection);
         HasAttributeFilter filter = new HasAttributeFilter("class", "list_item article_item");
         NodeList nodeList = parser.extractAllNodesThatMatch(filter);
