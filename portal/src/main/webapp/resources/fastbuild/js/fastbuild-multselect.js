@@ -37,8 +37,9 @@
             this.addEvent();
         },
         getSelfPosition: function () {
-            var ps = $(this.option.render).find('input[type="text"]').offset();
-            var point = {x: ps.left, y: ps.top + 22};
+            var ps = $(this.option.render).find('input[type="text"]').position();
+            var h = $(this.option.render).find('input[type="text"]').height();
+            var point = {x: ps.left, y: ps.top + h};
             if (console) {
                 console.log("get input position success! position:%o", ps);
             }
@@ -57,13 +58,13 @@
                 var li = $('<li><div  class="select-item-box"><input type="checkbox" value="' + id + '" >' + name + ' </div></li>');
                 list.append(li);
             }
+            $(this.option.render).css("position", 'relative');
             if (this.option.inline) {
                 $(this.option.render).css("display", 'inline');
             }
             this.option.boxStyle.top = this.getSelfPosition().y + "px";
             this.option.boxStyle.left = this.getSelfPosition().x + "px";
             this.option.boxStyle.width = ($(this.option.render).find('input[type="text"]').width() - 10) + "px";
-            //$(this.option.render).css("position", 'relative');
             box.css(this.option.boxStyle);
             box.append(list);
             $(this.option.render).append(box);
