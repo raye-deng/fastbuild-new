@@ -12,13 +12,15 @@
     <title>FastBuild</title>
     <meta http-equiv="Content-Type" charset="utf-8" content="text/html">
     <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9,IE=edge"/>
-    <link type="text/css" rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/fastbuild/css/fastbuild.css">
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/resources/script/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery.json.js"></script>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/resources/fastbuild/js/fastbuild.js"></script>
+    <link href="${pageContext.request.contextPath}/resources/fastbuild/css/fastbuild.css" type="text/css"
+          rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/script/jquery-1.8.3.min.js"
+            type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/script/jquery.json.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/fastbuild/js/fastbuild.js"
+            type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/fastbuild/js/fastbuild-multselect.js"
+            type="text/javascript"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/resources/images/cloud_favicon.ico" type="image/gif">
 
 </head>
@@ -63,6 +65,15 @@
     <div class="inputBox">
         <label>多行文本：</label>
         <textarea></textarea>
+    </div>
+
+    <div class="inputBox">
+        <label>多选组件：</label>
+
+        <div class="mult-selector">
+            <input type="text" value="" readonly>
+            <input type="hidden" value="">
+        </div>
     </div>
 </div>
 
@@ -142,13 +153,20 @@
     </table>
 </div>
 <div class="fast-build-content display-box" style="margin: 0 auto">
-    <h2>组件</h2>
+    <h2>内容检索组件</h2>
 </div>
 <jsp:include page="tpl/content/prj_review.jsp"></jsp:include>
 <div class="fast-build-content display-box" style="margin: 0 auto">
-    <h2>Component2</h2>
+    <h2>状态转换组件</h2>
 </div>
 <jsp:include page="tpl/content/prj_mgr.jsp"></jsp:include>
+
+<script>
+    var mult = $('.mul-selector').buildMultSelector({
+        dataMaps: [{'name': '北京', 'id': '0'}, {'name': '上海', 'id': '1'}, {'name': '天津', 'id': '2'}]
+    });
+</script>
+
 
 <jsp:include page="tpl/footer/footer_default.jsp"></jsp:include>
 </body>
