@@ -11,7 +11,7 @@
     <name>portal</name>
 
     <properties>
-        <org.springframework.version>4.1.3.RELEASE</org.springframework.version>
+        <org.springframework.version>4.3.21.RELEASE</org.springframework.version>
         <springside.version>4.3.0-SNAPSHOT</springside.version>
         <spring-ibatis.version>2.0.8</spring-ibatis.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
