@@ -27,7 +27,7 @@
         <commons-lang.version>2.4</commons-lang.version>
         <cglib.version>2.2</cglib.version>
         <ezmorph.version>1.0.3</ezmorph.version>
-        <fastjson.version>1.2.1</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <guava.version>18.0</guava.version>
         <ibatis-sqlmap.version>2.3.0</ibatis-sqlmap.version>
         <ibatis.version>3.0</ibatis.version>
