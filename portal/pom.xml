@@ -33,7 +33,7 @@
         <jdom.version>1.0</jdom.version>
         <jdom2.version>2.0.5</jdom2.version>
         <logback.version>1.1.2</logback.version>
-        <mysql-connector-java.version>5.1.13</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
         <slf4j.version>1.7.8</slf4j.version>
         <shiro.version>1.2.3</shiro.version>
         <xstream.version>1.4.8</xstream.version>
